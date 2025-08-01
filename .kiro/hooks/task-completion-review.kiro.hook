@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Task Completion Hook Review",
+  "description": "Automatically opens and reviews hooks in the .kiro/hooks directory when a task is completed to understand what was accomplished and identify potential backend connection issues",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "C:\\Users\\user\\Desktop\\Nueva carpeta (2)\\.kiro\\hooks\\*"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A task has been completed. Please review the hooks in C:\\Users\\user\\Desktop\\Nueva carpeta (2)\\.kiro\\hooks to understand what work was done and analyze any potential issues or confusions related to backend connections. Provide a summary of the completed work and highlight any backend connectivity concerns that need attention."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "enabled": true,
+  "name": "Design Consistency Checker",
+  "description": "Automatically reviews new components, sections, and screens to ensure they maintain consistent design patterns and follow the established theme guidelines if you see some inconsistends check the components that have this issues and update it, ever look all components for make more consistent this proyect about this desing",
+  "version": "1",
+  "when": {
+    "type": "userTriggered",
+    "patterns": [
+      "frontediatech/src/components/**/*.tsx",
+      "frontediatech/src/components/**/*.ts",
+      "frontediatech/src/app/**/*.tsx",
+      "frontediatech/src/app/**/*.ts",
+      "frontediatech/src/sections/**/*.tsx",
+      "frontediatech/src/sections/**/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A new component, section, or screen has been created or modified. Please review the code to ensure it maintains design consistency and follows the established theme. Check for:\n\n1. **Theme Adherence**: Verify colors, typography, spacing, and visual elements align with the established design system\n2. **Component Structure**: Ensure proper component organization and naming conventions\n3. **Design Patterns**: Check that UI patterns are consistent with existing components\n4. **Responsive Design**: Verify mobile-first approach and proper breakpoint usage\n5. **Accessibility**: Ensure proper ARIA labels, semantic HTML, and keyboard navigation\n6. **Style Consistency**: Check for consistent use of CSS classes, Tailwind utilities, or styled components\n\nProvide specific recommendations for any inconsistencies found and suggest improvements to maintain design cohesion across the application."
+  }
+}
