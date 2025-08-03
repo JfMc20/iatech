@@ -406,7 +406,7 @@ src/components/
 - FileUpload.tsx (image optimization)
 - optimized-image.tsx (alt prop, any types)
 - BusinessAssessmentDashboard.tsx (any types)
-- ServiceDiscoveryQuiz.tsx (any types)
+- ServiceDiscoveryQuiz.tsx (any types - ✅ Updated to use query params for assessment)
 - RecommendationInsights.tsx (any types)
 
 ### 🔄 Recently Updated (4 components)

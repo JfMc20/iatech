@@ -15,11 +15,13 @@ Sistema inteligente de recomendaciones que transforma la búsqueda pasiva de ser
 ```typescript
 GET    /api/service-discovery/questions          // Obtener preguntas
 POST   /api/service-discovery/submit            // Enviar respuestas
-GET    /api/service-discovery/assessment/:id    // Obtener evaluación
+GET    /api/service-discovery/assessment-by-id?id=... // Obtener evaluación (query param)
 POST   /api/service-discovery/progress          // Guardar progreso
 GET    /api/service-discovery/progress/:sessionId // Cargar progreso
 POST   /api/service-discovery/create-inquiry    // Convertir a consulta
 ```
+
+**⚠️ ROUTING UPDATE**: Assessment endpoint changed from dynamic route to query parameter due to Next.js App Router compatibility issues.
 
 ## Key Data Models
 ```typescript

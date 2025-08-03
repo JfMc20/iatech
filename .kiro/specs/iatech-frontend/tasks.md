@@ -28,9 +28,6 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
 ## Limpieza y Optimización Crítica del Proyecto
 
 - [x] **19. CRÍTICO: Limpieza y Optimización Completa del Proyecto** ✅
-
-
-
   - **AUDITORÍA COMPLETA**: Revisar y limpiar todo el codebase actual
   - **DOCUMENTACIÓN**: Actualizar todas las documentaciones y steering files
   - **CONTEXT OPTIMIZATION**: Optimizar contexto para desarrollo futuro
@@ -44,9 +41,39 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **INTEGRATION MAPPING**: Mapear todas las integraciones backend/frontend
   - **ERROR HANDLING**: Estandarizar manejo de errores en toda la aplicación
   - **TESTING GAPS**: Identificar gaps en testing y crear plan de cobertura
-  - **ENVIRONMENT CONFIG**: Optimizar configuración de variables de entorno
+  - **ENVIRONMENT CONFIG**: ✅ **URL Configuration Guidelines implementadas**
   - **BUILD OPTIMIZATION**: Optimizar proceso de build y bundle size
   - _Requirements: PREREQUISITO CRÍTICO para todas las tareas siguientes_
+
+## ⚠️ **CONFIGURACIÓN CRÍTICA DE URLs**
+
+**IMPORTANTE**: Todas las tareas siguientes deben seguir estrictamente las **URL Configuration Guidelines** para evitar errores de configuración:
+
+### ✅ **Configuración Correcta de Environment Variables**
+```bash
+# .env.local - SIEMPRE usar esta configuración
+NEXT_PUBLIC_API_URL=https://iatech-backend.onrender.com
+NEXT_PUBLIC_BACKEND_URL=https://iatech-backend.onrender.com
+```
+
+### ✅ **Patrón Correcto para API Routes**
+```typescript
+// En todos los archivos src/app/api/*/route.ts
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://iatech-backend.onrender.com'
+const url = `${BACKEND_URL}/api/endpoint` // Agregar /api explícitamente
+```
+
+### ❌ **NUNCA HACER**
+```bash
+# INCORRECTO - Causa doble /api paths
+NEXT_PUBLIC_API_URL=https://iatech-backend.onrender.com/api
+```
+
+### 📋 **Endpoints Actualizados**
+- ✅ **Assessment Endpoint**: `/api/service-discovery/assessment-by-id?id=...` (query parameters)
+- ✅ **Todos los endpoints**: Siguen patrón correcto de URL construction
+
+---
 
 ## Corrección Crítica de Idioma
 
@@ -54,6 +81,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **PROBLEMA CRÍTICO**: Dashboard actual (`/src/app/dashboard/page.tsx`) completamente en inglés
   - **CONTENIDO EN ESPAÑOL**: Traducir todos los textos del dashboard existente
   - **BACKEND INTEGRATION**: Mantener funcionalidad existente intacta
+  - **URL CONFIGURATION**: ✅ **Seguir URL Configuration Guidelines**
   - **DESIGN CONSISTENCY**: Conservar styling y componentes actuales
   - **PRIORIDAD**: ALTA - Bloquea experiencia de usuario en español
   - **PREREQUISITO**: Requiere Task 19 (Limpieza del Proyecto) completada
@@ -72,6 +100,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **BACKEND INTEGRATION**: Modificar endpoints existentes para soportar autenticación opcional
   - **BACKEND INTEGRATION**: Crear endpoint `/api/service-discovery/link-session` para vinculación post-registro
   - **BACKEND INTEGRATION**: Implementar índices compuestos por `userId` y `sessionId`
+  - **URL CONFIGURATION**: ✅ **Seguir URL Configuration Guidelines para todos los endpoints**
   - **FRONTEND INTEGRATION**: Crear componente `AuthPrompt` para incentivar registro durante quiz
   - **FRONTEND INTEGRATION**: Implementar `AssessmentHistory` component para usuarios logueados
   - **DESIGN CONSISTENCY**: Usar Card component para historial de evaluaciones
@@ -91,6 +120,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **BACKEND INTEGRATION**: Crear endpoint `/api/service-discovery/initiate-chat`
   - **BACKEND INTEGRATION**: Implementar `ProactiveNotificationService` para alertas de agentes
   - **BACKEND INTEGRATION**: Integrar con sistema de chat existente con contexto de assessment
+  - **URL CONFIGURATION**: ✅ **Usar assessment endpoint `/api/service-discovery/assessment-by-id?id=...`**
   - **FRONTEND INTEGRATION**: Crear componente `ExpertChatButton` en dashboard de resultados
   - **FRONTEND INTEGRATION**: Implementar `ChatContextLoader` para pre-cargar información
   - **DESIGN CONSISTENCY**: Usar Button component con variant "default" para chat CTA
@@ -111,6 +141,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **BACKEND INTEGRATION**: Crear endpoint `/api/service-discovery/adjust-roadmap`
   - **BACKEND INTEGRATION**: Implementar `RoadmapCalculationService` para ajustes dinámicos
   - **BACKEND INTEGRATION**: Agregar tracking de interacciones en ServiceRecommendation model
+  - **URL CONFIGURATION**: ✅ **Seguir URL Configuration Guidelines para nuevos endpoints**
   - **FRONTEND INTEGRATION**: Crear componente `InteractiveRoadmap` con drag-and-drop
   - **FRONTEND INTEGRATION**: Implementar `BudgetSlider` con preview en tiempo real
   - **FRONTEND INTEGRATION**: Construir `ServiceCards` con enlaces directos a paquetes
@@ -132,6 +163,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **BACKEND INTEGRATION**: Crear modelo `AssessmentFeedback` para capturar opiniones
   - **BACKEND INTEGRATION**: Implementar `ConversionTrackingService` para seguimiento completo
   - **BACKEND INTEGRATION**: Crear `AlgorithmOptimizationService` para mejora continua
+  - **URL CONFIGURATION**: ✅ **Seguir URL Configuration Guidelines para endpoints de analytics**
   - **FRONTEND INTEGRATION**: Crear componente `FeedbackSurvey` post-assessment
   - **FRONTEND INTEGRATION**: Implementar `ConversionDashboard` para administradores
   - **DESIGN CONSISTENCY**: Usar Rating component para feedback de satisfacción
@@ -152,6 +184,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **BACKEND INTEGRATION**: Crear `SmartNotificationService` para gestión de notificaciones
   - **BACKEND INTEGRATION**: Implementar cron jobs para notificaciones programadas
   - **BACKEND INTEGRATION**: Integrar con sistema de notificaciones push existente
+  - **URL CONFIGURATION**: ✅ **Usar endpoints existentes con configuración correcta**
   - **FRONTEND INTEGRATION**: Crear componente `NotificationPreferences` en perfil de usuario
   - **FRONTEND INTEGRATION**: Implementar `NotificationCenter` para historial
   - **DESIGN CONSISTENCY**: Usar Switch component para preferencias de notificaciones
@@ -172,6 +205,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **BACKEND INTEGRATION**: Crear `QuizAnalyticsService` para procesamiento de métricas
   - **BACKEND INTEGRATION**: Implementar agregaciones complejas para insights
   - **BACKEND INTEGRATION**: Crear sistema de alertas basado en umbrales
+  - **URL CONFIGURATION**: ✅ **Seguir URL Configuration Guidelines para endpoints de analytics**
   - **FRONTEND INTEGRATION**: Construir `QuizAnalyticsDashboard` con visualizaciones avanzadas
   - **FRONTEND INTEGRATION**: Implementar `InsightsPanel` con recomendaciones automáticas
   - **DESIGN CONSISTENCY**: Usar chart color variables para todas las visualizaciones
@@ -192,6 +226,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **BACKEND INTEGRATION**: Implementar sistema de A/B testing para preguntas
   - **BACKEND INTEGRATION**: Crear `AdaptiveQuizFlow` para personalización dinámica
   - **BACKEND INTEGRATION**: Implementar soporte multi-idioma en base de datos
+  - **URL CONFIGURATION**: ✅ **Seguir URL Configuration Guidelines para todos los endpoints**
   - **FRONTEND INTEGRATION**: Crear componente `LanguageSelector` para quiz
   - **FRONTEND INTEGRATION**: Implementar `AdaptiveQuestionFlow` component
   - **DESIGN CONSISTENCY**: Usar Select component para selección de idioma
@@ -211,6 +246,7 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **CONTENIDO EN ESPAÑOL**: Agregar sistema de versioning de archivos en español
   - **BACKEND INTEGRATION**: Crear endpoints para gestión de documentos y assets
   - **BACKEND INTEGRATION**: Implementar sistema de versioning y historial
+  - **URL CONFIGURATION**: ✅ **Seguir URL Configuration Guidelines para nuevos endpoints**
   - **DESIGN CONSISTENCY**: Usar FileUpload component para subida de documentos
   - **DESIGN CONSISTENCY**: Aplicar Tabs component para organización de secciones
   - **DESIGN CONSISTENCY**: Usar Progress component para indicadores de completitud
@@ -294,6 +330,45 @@ IATECH evoluciona de una plataforma de servicios a un **ecosistema completo de g
   - **DESIGN CONSISTENCY**: Usar Button component para acciones de comunicación
   - **DESIGN CONSISTENCY**: Implementar toast notifications para mensajes
   - _Requirements: 5.6, 6.6, 9.7 - NUEVA FUNCIONALIDAD CORE_
+
+## 🔍 **VALIDACIÓN DE CONFIGURACIÓN DE URLs**
+
+### ✅ **Checklist Obligatorio para Cada Task**
+
+Antes de implementar cualquier tarea que involucre **BACKEND INTEGRATION**, verificar:
+
+1. **Environment Variables**:
+   ```bash
+   # ✅ CORRECTO
+   NEXT_PUBLIC_API_URL=https://iatech-backend.onrender.com
+   NEXT_PUBLIC_BACKEND_URL=https://iatech-backend.onrender.com
+   ```
+
+2. **API Route Pattern**:
+   ```typescript
+   // ✅ CORRECTO en src/app/api/*/route.ts
+   const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://iatech-backend.onrender.com'
+   const url = `${BACKEND_URL}/api/endpoint`
+   ```
+
+3. **Testing Endpoints**:
+   - Verificar que no hay doble `/api` en URLs
+   - Probar conectividad con backend
+   - Validar respuestas de API
+
+4. **Assessment Endpoint**:
+   - ✅ Usar `/api/service-discovery/assessment-by-id?id=...`
+   - ❌ NO usar `/api/service-discovery/assessment/[id]`
+
+### 🚨 **Señales de Alerta**
+
+Si encuentras estos patrones, **DETENER** y corregir:
+- URLs con `/api/api/`
+- Environment variables con `/api` al final
+- Errores 404 en endpoints existentes
+- Problemas de CORS inesperados
+
+---
 
 ## Advanced Collaboration & Project Management
 
@@ -561,3 +636,36 @@ Antes de marcar cualquier tarea como completa:
 - **+300% en insights**: Analytics avanzados vs básicos (Task 26)
 
 **IATECH está evolucionando hacia un ecosistema completo de gestión digital que revolucionará la forma en que los clientes organizan y colaboran en sus proyectos digitales.** 🚀
+
+---
+
+## ⚠️ **NOTA CRÍTICA FINAL - CONFIGURACIÓN DE URLs**
+
+### 🚨 **RECORDATORIO OBLIGATORIO**
+
+**TODAS las tareas que involucren BACKEND INTEGRATION deben seguir estrictamente las URL Configuration Guidelines para evitar errores de configuración.**
+
+### ✅ **Configuración Correcta Obligatoria**
+```bash
+# .env.local - SIEMPRE usar esta configuración
+NEXT_PUBLIC_API_URL=https://iatech-backend.onrender.com
+NEXT_PUBLIC_BACKEND_URL=https://iatech-backend.onrender.com
+```
+
+### ✅ **Patrón de API Routes Obligatorio**
+```typescript
+// En TODOS los archivos src/app/api/*/route.ts
+const BACKEND_URL = process.env.NEXT_PUBLIC_API_URL || 'https://iatech-backend.onrender.com'
+const url = `${BACKEND_URL}/api/endpoint` // Agregar /api explícitamente
+```
+
+### 📋 **Validación Obligatoria Antes de Cada Implementación**
+1. ✅ Verificar que no hay `/api/api/` en URLs
+2. ✅ Confirmar que environment variables NO terminan en `/api`
+3. ✅ Probar conectividad con backend antes de continuar
+4. ✅ Usar assessment endpoint con query parameters: `/api/service-discovery/assessment-by-id?id=...`
+
+### 🎯 **Objetivo**
+**Prevenir errores de configuración que puedan interrumpir el desarrollo y mantener la estabilidad del sistema durante toda la implementación.**
+
+**¡La configuración correcta de URLs es CRÍTICA para el éxito de todas las tareas!** ⚡

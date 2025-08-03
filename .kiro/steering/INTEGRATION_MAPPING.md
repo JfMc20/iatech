@@ -34,12 +34,14 @@ Frontend Components → Backend Endpoints
 Frontend Components → Backend Endpoints
 ├── ServiceDiscoveryQuiz.tsx → GET /api/service-discovery/questions
 ├── ServiceDiscoveryQuiz.tsx → POST /api/service-discovery/submit
-├── BusinessAssessmentDashboard.tsx → GET /api/service-discovery/assessment/[id]
+├── BusinessAssessmentDashboard.tsx → GET /api/service-discovery/assessment-by-id?id=...
 ├── QuizProgress.tsx → POST /api/service-discovery/progress
 ├── QuizProgress.tsx → GET /api/service-discovery/progress/[sessionId]
 ├── RecommendationResults.tsx → POST /api/service-discovery/create-inquiry
-└── BusinessRoadmap.tsx → GET /api/service-discovery/assessment/[id]
+└── BusinessRoadmap.tsx → GET /api/service-discovery/assessment-by-id?id=...
 ```
+
+**⚠️ ROUTING ISSUE RESOLVED**: The assessment endpoint was changed from dynamic route `/assessment/[id]` to query parameter `/assessment-by-id?id=...` due to Next.js App Router compatibility issues in certain deployment environments.
 
 ### Admin System
 ```

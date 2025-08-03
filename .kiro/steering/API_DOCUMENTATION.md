@@ -153,6 +153,8 @@ All endpoints proxy to: `https://iatech-backend.onrender.com`
 
 ### 🔍 Service Discovery System
 
+**⚠️ ROUTING COMPATIBILITY NOTE**: Due to Next.js App Router compatibility issues with dynamic routes in certain deployment environments, the assessment endpoint uses query parameters instead of dynamic route parameters.
+
 #### GET /api/service-discovery/questions
 **Description**: Get all quiz questions for service discovery
 **Proxy Target**: `${BACKEND_URL}/api/service-discovery/questions`
@@ -224,19 +226,24 @@ interface QuizAnswer {
 
 ---
 
-#### GET /api/service-discovery/assessment/[id]
-**Description**: Retrieve generated business assessment by ID
+#### GET /api/service-discovery/assessment-by-id
+**Description**: Retrieve generated business assessment by ID using query parameters
 **Proxy Target**: `${BACKEND_URL}/api/service-discovery/assessment/{id}`
 
-**Path Parameters**:
+**Query Parameters**:
 - `id` - Assessment ID (string, required)
+
+**Example Usage**:
+```
+GET /api/service-discovery/assessment-by-id?id=688d3bbb7a8fb672cd55aae3
+```
 
 **Validation**:
 - ID must be non-empty string
 - URL encodes assessment ID
 
 **Error Handling**:
-- 400: Invalid assessment ID
+- 400: Invalid assessment ID or missing ID parameter
 - 404: Assessment not found
 - 500: Backend error
 
@@ -260,6 +267,8 @@ interface BusinessAssessment {
   createdAt: string;
 }
 ```
+
+**⚠️ IMPORTANT NOTE**: This endpoint uses query parameters instead of dynamic routes due to Next.js App Router compatibility issues with dynamic route parameters in certain deployment environments.
 
 ---
 

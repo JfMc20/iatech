@@ -98,10 +98,12 @@ Frontend API Routes (/api/*)
 **Service Discovery API:**
 - `src/app/api/service-discovery/questions/route.ts`
 - `src/app/api/service-discovery/submit/route.ts`
-- `src/app/api/service-discovery/assessment/[id]/route.ts`
+- `src/app/api/service-discovery/assessment-by-id/route.ts` (uses query params)
 - `src/app/api/service-discovery/progress/route.ts`
 - `src/app/api/service-discovery/progress/[sessionId]/route.ts`
 - `src/app/api/service-discovery/create-inquiry/route.ts`
+
+**⚠️ ROUTING ISSUE RESOLVED**: Assessment endpoint changed from dynamic route `/assessment/[id]` to query parameter `/assessment-by-id?id=...` due to Next.js App Router compatibility issues in deployment environments.
 
 **Setup API:**
 - `src/app/api/setup/seed/route.ts`
@@ -126,7 +128,7 @@ Before making URL changes, verify:
 4. **Setup endpoints**: `/api/setup/*` work
 5. **Service Discovery Questions**: `GET /api/service-discovery/questions` works
 6. **Service Discovery Submit**: `POST /api/service-discovery/submit` works
-7. **Service Discovery Assessment**: `GET /api/service-discovery/assessment/[id]` works
+7. **Service Discovery Assessment**: `GET /api/service-discovery/assessment-by-id?id=...` works
 8. **Service Discovery Progress**: `GET/POST /api/service-discovery/progress/*` works
 
 ## Common Issues & Solutions
