@@ -1,0 +1,30 @@
+name: CI de IATECH
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 1. Verificar el código del repositorio
+      uses: actions/checkout@v4
+      
+    - name: 2. Configurar Node.js (ejemplo para el frontend)
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        
+    # Aquí se añadirían los pasos de instalación y pruebas en el futuro
+    - name: 3. Placeholder para instalar dependencias del Frontend
+      run: echo "Paso para instalar dependencias del frontend..."
+      
+    - name: 4. Placeholder para instalar dependencias del Backend
+      run: echo "Paso para instalar dependencias del backend..."
+      
+    - name: 5. Placeholder para ejecutar pruebas
+      run: echo "Este trabajo ejecutará las pruebas en el futuro."

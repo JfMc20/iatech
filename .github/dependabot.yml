@@ -1,0 +1,49 @@
+version: 2
+updates:
+  # Frontend dependencies
+  - package-ecosystem: "npm"
+    directory: "/frontediatech"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "JfMc20"
+    assignees:
+      - "JfMc20"
+    commit-message:
+      prefix: "deps(frontend)"
+      include: "scope"
+
+  # Backend dependencies
+  - package-ecosystem: "npm"
+    directory: "/backendiatech"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "JfMc20"
+    assignees:
+      - "JfMc20"
+    commit-message:
+      prefix: "deps(backend)"
+      include: "scope"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "JfMc20"
+    assignees:
+      - "JfMc20"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
