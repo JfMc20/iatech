@@ -33,13 +33,13 @@ jobs:
       run: npm ci
       
     - name: Verificar tipos TypeScript
-      run: npm run type-check || echo "Type check no configurado aún"
+      run: npm run type-check
       
     - name: Ejecutar linting
-      run: npm run lint || echo "Linting no configurado aún"
+      run: npm run lint
       
     - name: Ejecutar tests
-      run: npm test || echo "Tests no configurados aún"
+      run: npm test
       
     - name: Build de producción
       run: npm run build
@@ -59,9 +59,9 @@ jobs:
       mongodb:
         image: mongo:7.0
         ports:
-          - 27017:27017
+        - 27017:27017
         options: >-
-          --health-cmd "mongosh --eval 'db.runCommand({ping: 1})'"
+          --health-cmd "mongo --eval 'db.runCommand({ping: 1})'"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -81,20 +81,20 @@ jobs:
       run: npm ci
       
     - name: Verificar tipos TypeScript
-      run: npm run type-check || echo "Type check no configurado aún"
+      run: npm run type-check
       
     - name: Ejecutar linting
-      run: npm run lint || echo "Linting no configurado aún"
+      run: npm run lint
       
     - name: Ejecutar tests unitarios
-      run: npm test || echo "Tests no configurados aún"
+      run: npm test
       env:
         MONGODB_URI: mongodb://localhost:27017/iatech-test
         JWT_SECRET: test-secret
         NODE_ENV: test
         
     - name: Ejecutar tests de seguridad
-      run: npm run test:security || echo "Security tests no configurados aún"
+      run: npm run test:security
       
     - name: Build de producción
       run: npm run build
@@ -111,12 +111,12 @@ jobs:
     - name: Ejecutar análisis de vulnerabilidades npm (Frontend)
       run: |
         cd frontediatech
-        npm audit --audit-level=high || echo "Vulnerabilidades encontradas en frontend"
+        npm audit --audit-level=high
         
     - name: Ejecutar análisis de vulnerabilidades npm (Backend)
       run: |
         cd backendiatech
-        npm audit --audit-level=high || echo "Vulnerabilidades encontradas en backend"
+        npm audit --audit-level=high
 
   # Job para verificar la estructura del monorepo
   monorepo-structure:
