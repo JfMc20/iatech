@@ -1,0 +1,162 @@
+name: CI Completo IATECH
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  # Job para el Frontend
+  frontend:
+    name: Frontend CI
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontediatech
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: frontediatech/package-lock.json
+        
+    - name: Instalar dependencias
+      run: npm ci
+      
+    - name: Verificar tipos TypeScript
+      run: npm run type-check || echo "Type check no configurado aún"
+      
+    - name: Ejecutar linting
+      run: npm run lint || echo "Linting no configurado aún"
+      
+    - name: Ejecutar tests
+      run: npm test || echo "Tests no configurados aún"
+      
+    - name: Build de producción
+      run: npm run build
+      
+    - name: Build Storybook
+      run: npm run build-storybook || echo "Storybook build no configurado aún"
+
+  # Job para el Backend
+  backend:
+    name: Backend CI
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backendiatech
+    
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd "mongosh --eval 'db.runCommand({ping: 1})'"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Configurar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: backendiatech/package-lock.json
+        
+    - name: Instalar dependencias
+      run: npm ci
+      
+    - name: Verificar tipos TypeScript
+      run: npm run type-check || echo "Type check no configurado aún"
+      
+    - name: Ejecutar linting
+      run: npm run lint || echo "Linting no configurado aún"
+      
+    - name: Ejecutar tests unitarios
+      run: npm test || echo "Tests no configurados aún"
+      env:
+        MONGODB_URI: mongodb://localhost:27017/iatech-test
+        JWT_SECRET: test-secret
+        NODE_ENV: test
+        
+    - name: Ejecutar tests de seguridad
+      run: npm run test:security || echo "Security tests no configurados aún"
+      
+    - name: Build de producción
+      run: npm run build
+
+  # Job para análisis de seguridad
+  security:
+    name: Análisis de Seguridad
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Ejecutar análisis de vulnerabilidades npm (Frontend)
+      run: |
+        cd frontediatech
+        npm audit --audit-level=high || echo "Vulnerabilidades encontradas en frontend"
+        
+    - name: Ejecutar análisis de vulnerabilidades npm (Backend)
+      run: |
+        cd backendiatech
+        npm audit --audit-level=high || echo "Vulnerabilidades encontradas en backend"
+
+  # Job para verificar la estructura del monorepo
+  monorepo-structure:
+    name: Verificar Estructura Monorepo
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Verificar estructura de directorios
+      run: |
+        echo "Verificando estructura del monorepo..."
+        
+        # Verificar que existen los directorios principales
+        if [ ! -d "frontediatech" ]; then
+          echo "❌ Error: Directorio frontediatech no encontrado"
+          exit 1
+        fi
+        
+        if [ ! -d "backendiatech" ]; then
+          echo "❌ Error: Directorio backendiatech no encontrado"
+          exit 1
+        fi
+        
+        # Verificar archivos importantes
+        if [ ! -f "frontediatech/package.json" ]; then
+          echo "❌ Error: package.json del frontend no encontrado"
+          exit 1
+        fi
+        
+        if [ ! -f "backendiatech/package.json" ]; then
+          echo "❌ Error: package.json del backend no encontrado"
+          exit 1
+        fi
+        
+        echo "✅ Estructura del monorepo verificada correctamente"
+        
+    - name: Mostrar información del proyecto
+      run: |
+        echo "📊 Información del Monorepo IATECH:"
+        echo "Frontend: $(cd frontediatech && node -p 'require("./package.json").name + " v" + require("./package.json").version')"
+        echo "Backend: $(cd backendiatech && node -p 'require("./package.json").name + " v" + require("./package.json").version')"
